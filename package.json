@@ -17,5 +17,17 @@
   "devDependencies": {
     "nodemon": "^2.0.15",
     "prisma": "^3.8.1"
-  }
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ubmagh/examen.git"
+  },
+  "author": "ayoub maghdaoui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ubmagh/examen/issues"
+  },
+  "homepage": "https://github.com/ubmagh/examen#readme",
+  "description": ""
 }
