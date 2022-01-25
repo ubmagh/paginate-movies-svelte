@@ -1,13 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-
-    const fs = require('fs')
-    res.json( JSON.parse( fs.readFileSync('./var/movies_reduit.json', {encoding:'utf8', flag:'r'}) ) );
-
+const {PrismaClient} = require('@prisma/client')
+const prisma = new PrismaClient()
+ 
+router.get('/', async function(req, res, next) {
+    const movies = await prisma.movies.findMany({take: 10})
+  res.send(movies);
 });
-
+ 
 module.exports = router;
-
