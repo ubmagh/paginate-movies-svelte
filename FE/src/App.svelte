@@ -20,8 +20,36 @@
 </script>
 
 <main>
-	<h1>Hello!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<h1 class="h1 text-center mb-3"> Movies </h1>
+	<div class="m-2 py-4 px-3 border border-secondary rounded">
+		<table class="table stripped text-center m-1">
+			<thead>
+				<tr> 
+					<th class="col-4"> Title </th>	
+					<th class="col-4"> Genres </th>	
+					<th class="col-4"> Year </th>	
+				</tr>
+			</thead>
+			<tbody>
+				{#each movies as movie}
+					<tr> 
+						<td> {movie.title} </td>
+						<td> {movie.genres} </td>
+						<td> {movie.year} </td>
+					</tr>
+				{:else}
+					<tr>
+						<td colspan="3"> We can't find any movie </td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+	<div class="mt-3 mb-2 w-100">
+		<div class="p-2 m-2 border border-secondary">
+			
+		</div>
+	</div>
 </main>
 
 <style>
