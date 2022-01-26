@@ -1,6 +1,6 @@
 {
-  "name": "examen",
-  "version": "0.0.0",
+  "name": "paginate-movies-svelte",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
@@ -31,5 +31,10 @@
     "url": "https://github.com/ubmagh/examen/issues"
   },
   "homepage": "https://github.com/ubmagh/examen#readme",
-  "description": ""
+  "description": "simple svelte app to navigate movies in var/movies_reduit.json -imported into mongoDb database- throught express api.",
+  "keywords": [
+    "svelte",
+    "mongoDb",
+    "express"
+  ]
 }
