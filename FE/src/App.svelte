@@ -1,22 +1,39 @@
 <script>
 	import { onMount } from 'svelte';
-	let pagination={}, movies = [];
+	let pagination={ count: 0, take: 10, skip: 0}, movies = [];
+	let pages = [1], pageInput, perPageInput;
+	const perPages = [ 10,20,30,40,50,75,100,150,200];
 
-	const getMovies = async ( limit=10, offset=0)=>{
+	const getMovies = async ()=>{
 		var url = new URL("http://localhost:3000/movies"),
-		params = { limit, offset}
+		params = { "offset": (pagination.skip), "limit": pagination.take}
 		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 		fetch(url,{
 			method:"get"
 		}).then(res=>res.json()).then(data=>{
 			pagination = data.pagination;
 			movies = data.data;
+			pages=[];
+			for( let i=0; i< Math.ceil(pagination.count/pagination.take); i++)
+				pages.push(i+1);
 		});
 	}
 	
 	onMount(() => {
 		getMovies();
 	});
+	function paginate(){
+		pagination.skip = parseInt(pageInput.value)-1;
+		pagination.take = parseInt( perPageInput.value );
+		getMovies();
+	}
+
+
+	function paginatePerPage(){
+		pagination.skip = 0;
+		pagination.take = parseInt( perPageInput.value );
+		getMovies();
+	}
 </script>
 
 <main>
@@ -46,8 +63,31 @@
 		</table>
 	</div>
 	<div class="mt-3 mb-2 w-100">
-		<div class="p-2 m-2 border border-secondary">
-			
+		<div class="p-2 m-2 border border-secondary w-auto row">
+			<div class="col form row justify-content-end align-content-center">
+				<label for="page" class="w-auto"> Page : </label>
+				<select class="form-select w-auto" id="page" on:change={paginate} bind:this={pageInput} aria-label="select example">
+					{#each pages as i }
+						{#if (pagination.skip+1)==i}
+							<option value={i}  selected  >{i}</option>
+						{:else}
+							<option value={i} >{i}</option>
+						{/if}
+					{/each }
+				</select>
+			</div>
+			<div class="col form row justify-content-start align-content-center">
+				<label for="perpage" class="w-auto"> Items per page : </label>
+				<select class="form-select w-auto" id="perpage" on:change={paginatePerPage} bind:this={perPageInput} aria-label="select example">
+					{#each perPages as i }
+						{#if (pagination.skip+1)==i}
+							<option value={i}  selected  >{i}</option>
+						{:else}
+							<option value={i} >{i}</option>
+						{/if}
+					{/each }
+				</select>
+			</div>
 		</div>
 	</div>
 </main>
