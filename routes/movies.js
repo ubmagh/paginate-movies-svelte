@@ -5,8 +5,8 @@ const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
  
 router.get('/', async function(req, res, next) {
-    const take = parseInt( req.params.take ) ? parseInt( req.params.take ): 10;
-    const skip = parseInt( req.params.skip )? parseInt( req.params.skip ) : 0;
+    const take = parseInt( req.params.limit ) ? parseInt( req.params.limit ): 10;
+    const skip = parseInt( req.params.offset )? parseInt( req.params.offset ) : 0;
     const movies = await prisma.movies.findMany({take, skip})
     const total = await prisma.movies.count();
     res.send({

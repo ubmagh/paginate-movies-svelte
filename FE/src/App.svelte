@@ -1,9 +1,26 @@
 <script>
-	export let name;
+	import { onMount } from 'svelte';
+	let pagination={}, movies = [];
+
+	const getMovies = async ( limit=10, offset=0)=>{
+		var url = new URL("http://localhost:3000/movies"),
+		params = { limit, offset}
+		Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+		fetch(url,{
+			method:"get"
+		}).then(res=>res.json()).then(data=>{
+			pagination = data.pagination;
+			movies = data.data;
+		});
+	}
+	
+	onMount(() => {
+		getMovies();
+	});
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
+	<h1>Hello!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 </main>
 
